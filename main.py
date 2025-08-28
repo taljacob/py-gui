@@ -1,22 +1,27 @@
 from modules import functions
-import FreeSimpleGUI as sg
+import FreeSimpleGUI as SG
 
 
-label = sg.Text("Type in a ToDo")
-input_box = sg.InputText(tooltip="Enter a todo item", key="todo")
-add_button = sg.Button("Add")
+label = SG.Text("Type in a ToDo")
+input_box = SG.InputText(tooltip="Enter a todo item", key="todo")
+add_button = SG.Button("Add")
 
-window = sg.Window("ToDo App",
-                   layout=[
-                       [label],
-                       [input_box, add_button]
-                    ])
+window = SG.Window(
+    "ToDo App",
+    layout=[[label], [input_box, add_button]],
+    font=('Helvetica', 20))
 
-
-
+todos = functions.read_todos()
 ## display the window and wait for an event
-window.read()
-
+while True:
+    event, values = window.read()
+    print(f"event: {event}, values: {values}")
+    match event:
+        case "Add":
+            todos.append(values['todo'] + '\n')
+            functions.write_todos(todos)
+        case SG.WIN_CLOSED:
+            break
 
 ## close the window
 window.close()
