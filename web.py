@@ -45,4 +45,3 @@ with st.container(height=500, ):
 
 st.text_input(label='', placeholder="Enter a todo item...", on_change=add_todo, key='new_todo')
 
-st.session_state
